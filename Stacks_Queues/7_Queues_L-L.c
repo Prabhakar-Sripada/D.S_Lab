@@ -87,7 +87,7 @@ int main ()
     {
         printf("\n****Main Menu****\n");
         printf("\n========================================\n");
-        printf("\n1.insert an element\n2.Delete an element\n3.Display the queue\n4.Exit\n");
+        printf("\n1.Insert an element\n2.Delete an element\n3.Display the queue\n4.Exit\n");
         printf("\nEnter your choice: ");
         scanf("%d",& choice);
         
