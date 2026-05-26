@@ -8,7 +8,7 @@ struct node
 };
 
 struct node *front = NULL;
-struct node *rear = NULL; void insert();
+struct node *rear = NULL;
 
 void insert()
 {

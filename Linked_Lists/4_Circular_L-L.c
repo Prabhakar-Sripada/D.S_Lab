@@ -209,7 +209,7 @@ int main()
             case 3 :
             {
                 printf("Enter the Data & Position: ");
-                scanf("%d", &data);
+                scanf("%d%d", &data, &pos);
 
                 Insertion_at_Pos(data, pos);
                 printf("%d is Inserted at Position %d", data, pos);
@@ -255,7 +255,7 @@ int main()
 
             default :
             {
-                printf("ERROR: Invalid Input");\
+                printf("ERROR: Invalid Input");
 
                 break;
             }

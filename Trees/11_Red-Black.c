@@ -45,8 +45,7 @@ void inorder(struct node* root)
     if (root)
     {
         inorder(root->left);
-        printf("%d(%c) ", root->data,
-               root->color == RED ? 'R' : 'B');
+        printf("%d(%c) ", root->data, root->color == RED ? 'R' : 'B');
         inorder(root->right);
     }
 }

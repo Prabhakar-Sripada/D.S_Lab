@@ -1,272 +1,103 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
-{
+struct Node {
     int data;
-    struct Node *next;
-    struct Node *prev;
+    struct Node *prev, *next;
 };
 
 struct Node *Head = NULL;
 
-void Insertion_at_End(int data)
-{
-    struct Node *newnode, *temp;
+struct Node* create(int data) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = data;
+    n->prev = n->next = NULL;
+    return n;
+}
 
-    newnode = (struct Node*)malloc(sizeof(struct Node));
-    newnode -> data = data;
-    newnode -> prev = NULL;
-    newnode -> next = NULL;
+// Insertions
+void insertBeg(int data) {
+    struct Node *n = create(data);
+    if (Head) Head->prev = n, n->next = Head;
+    Head = n;
+}
 
-    if(Head == NULL)
-    {
-        Head = newnode;
-    }
-    else
-    {
-        temp = Head;
+void insertEnd(int data) {
+    struct Node *n = create(data), *t = Head;
+    if (!Head) { Head = n; return; }
+    while (t->next) t = t->next;
+    t->next = n; n->prev = t;
+}
 
-        while(temp -> next != NULL)
-        {
-            temp = temp -> next;
+void insertPos(int data, int pos) {
+    struct Node *n = create(data), *t = Head;
+    for (int i = 1; i < pos-1 && t; i++) t = t->next;
+    if (!t) return;
+    n->next = t->next;
+    if (t->next) t->next->prev = n;
+    t->next = n; n->prev = t;
+}
+
+// Deletions
+void deleteBeg() {
+    if (!Head) return;
+    struct Node *t = Head;
+    Head = Head->next;
+    if (Head) Head->prev = NULL;
+    free(t);
+}
+
+void deleteEnd() {
+    if (!Head) return;
+    struct Node *t = Head;
+    while (t->next) t = t->next;
+    if (t->prev) t->prev->next = NULL;
+    else Head = NULL;
+    free(t);
+}
+
+void deletePos(int pos) {
+    struct Node *t = Head;
+    for (int i = 1; i < pos && t; i++) t = t->next;
+    if (!t) return;
+    if (t->prev) t->prev->next = t->next;
+    else Head = t->next;
+    if (t->next) t->next->prev = t->prev;
+    free(t);
+}
+
+// Display
+void display() {
+    for (struct Node *t = Head; t; t = t->next)
+        printf("%d <-> ", t->data);
+    printf("NULL\n");
+}
+
+// Main
+int main() {
+    int ch, data, pos;
+    while (1) {
+        printf("\n1.Beg 2.End 3.Pos 4.DelBeg 5.DelEnd 6.DelPos 7.Show -1.Exit\n");
+        scanf("%d", &ch);
+        if (ch == -1) break;
+
+        if (ch <= 3) {
+            printf("Enter data: "); scanf("%d", &data);
+        }
+        if (ch == 3 || ch == 6) {
+            printf("Enter position: "); scanf("%d", &pos);
         }
 
-        temp -> next = newnode;
-        newnode -> prev = temp;
-    }
-}
-
-void Insertion_at_Beg(int data)
-{
-    struct Node *newnode;
-
-   newnode = (struct Node*)malloc(1*sizeof(struct Node));
-    newnode -> data = data;
-    newnode -> prev = NULL;
-    newnode -> next = NULL;
-
-    if(Head == NULL)
-    {
-        Head = newnode;
-    }
-    else
-    {
-        Head -> prev = newnode;
-        newnode -> next = Head;
-        Head = newnode;
-    }
-}
-
-void Insertion_at_Pos(int data, int pos)
-{
-    struct Node *newnode, *temp;
-
-   newnode = (struct Node*)malloc(1*sizeof(struct Node));
-    newnode -> data = data;
-    newnode -> prev = NULL;
-    newnode -> next = NULL;
-
-    temp = Head;
-
-    while(pos - 2)
-    {
-        temp = temp -> next;
-        pos --;
-    }
-
-    newnode -> next = temp -> next;
-    newnode -> prev = temp;
-    temp -> next -> prev = newnode;
-    temp -> next = newnode;
-}
-
-void Deletion_at_End()
-{
-    struct Node *temp, *delnode;
-
-    temp = Head;
-
-    if(Head == NULL)
-    {
-        printf("No Node to delete");
-    }
-    else if(Head -> next == NULL)
-    {
-        delnode = Head;
-        Head = NULL;
-        free(delnode);
-    }
-    else
-    {
-        while(temp -> next -> next != NULL)
-        {
-            temp = temp -> next;
+        switch (ch) {
+            case 1: insertBeg(data); break;
+            case 2: insertEnd(data); break;
+            case 3: insertPos(data, pos); break;
+            case 4: deleteBeg(); break;
+            case 5: deleteEnd(); break;
+            case 6: deletePos(pos); break;
+            case 7: display(); break;
+            default: printf("Invalid\n");
         }
-
-        delnode = temp -> next;
-        temp -> next = NULL;
-        free(delnode);
     }
-}
-
-void Deletion_at_Beg()
-{
-    struct Node *delnode;
-
-    if(Head == NULL)
-    {
-        printf("No Node to delete");
-    }
-    else if(Head -> next == NULL)
-    {
-        delnode = Head;
-        Head = NULL;
-
-        free(delnode);
-    }
-    else
-    {
-        delnode = Head;
-        Head = Head -> next;
-        Head -> prev = NULL;
-
-        free(delnode);
-    }
-}
-
-void Deletion_at_Pos(int pos)
-{
-    struct Node *temp, *delnode;
-
-    temp = Head;
-
-    while(pos - 2)
-    {
-        temp = temp -> next;
-        pos --;
-    }
-
-    delnode = temp -> next;
-    temp -> next = temp -> next -> next;
-    temp -> next -> prev = temp;
-
-    free(delnode);
-}
-
-void Display()
-{
-    struct Node *temp;
-
-    temp = Head;
-
-    while(temp -> next != NULL)
-    {
-        printf("%d ==>", temp -> data);
-        
-        temp = temp -> next;
-    }
-
-    printf("%d\n", temp -> data);
-}
-
-int main()
-{
-    int n, data, pos;
-
-    printf("\n--Enter the number beside to Operate--\n");
-    printf("1. Insert at Beggining\n 2. Insert at Ending\n 3. Insert at Position\n 4. Delete at Beggining\n 5. Delete at Ending\n 6. Delete at Position\n 7. Display");
-    printf("\n--Enter '-1' to Exit--\n");
-
-    printf("Enter you Choice: ");
-    scanf("%d", &n);
-
-    while(n != -1)
-    {
-        switch (n)
-        {
-            case 1 :
-            {
-                printf("Enter the Data: ");
-                scanf("%d", &data);
-
-                Insertion_at_Beg(data);
-                printf("%d is Inserted at Beggining", data);
-
-                break;
-            }
-
-            case 2 :
-            {
-                printf("Enter the Data: ");
-                scanf("%d", &data);
-
-                Insertion_at_End(data);
-                printf("%d is Inserted at Ending", data);
-
-                break;
-            }
-
-            case 3 :
-            {
-                printf("Enter the Data & Position: ");
-                scanf("%d", &data);
-
-                Insertion_at_Pos(data, pos);
-                printf("%d is Inserted at Position %d", data, pos);
-
-                break;
-            }
-
-            case 4 :
-            {
-                Deletion_at_Beg();
-                printf("Value Deleted at Beggining");
-
-                break;
-            }
-
-            case 5 :
-            {
-                Deletion_at_End();
-                printf("Value Deleted at Ending");
-
-                break;
-            }
-
-            case 6 :
-            {
-                printf("Enter Position to Delete: ");
-                scanf("%d", &pos);
-
-                Deletion_at_Pos(pos);
-                printf("Value Deleted at Position %d", pos);
-
-                break;
-            }
-
-            case 7 :
-            {
-                printf("The Linked List is: \n");
-
-                Display();
-
-                break;
-            }
-
-            default :
-            {
-                printf("ERROR: Invalid Input");\
-
-                break;
-            }
-        }
-
-        printf("\n\nEnter your Choice: ");
-        scanf("%d", &n);
-    }
-
-    printf("\n--Program Terminated--\n");
-
     return 0;
-}   
+}
