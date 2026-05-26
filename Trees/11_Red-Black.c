@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Possible colors for a red-black tree node.
 enum color { RED, BLACK };
 
+// Structure for one node of the tree.
 struct node
 {
     int data;
@@ -10,8 +12,10 @@ struct node
     struct node *left, *right;
 };
 
+// Root points to the first node of the tree.
 struct node *root = NULL;
 
+// Creates a new red node.
 struct node* newNode(int data)
 {
     struct node* n = (struct node*)malloc(sizeof(struct node));
@@ -21,6 +25,7 @@ struct node* newNode(int data)
     return n;
 }
 
+// Inserts a value using binary search tree insertion logic.
 struct node* insert(struct node* root, int data)
 {
     if (root == NULL)
@@ -34,12 +39,14 @@ struct node* insert(struct node* root, int data)
     return root;
 }
 
+// Ensures the root node is always black.
 void fixColor()
 {
     if (root != NULL)
         root->color = BLACK;
 }
 
+// Displays nodes in sorted order along with their color.
 void inorder(struct node* root)
 {
     if (root)

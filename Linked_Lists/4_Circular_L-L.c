@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for one node of the circular linked list.
 struct Node
 {
     int data;
@@ -8,9 +9,11 @@ struct Node
     struct Node *next;
 };
 
+// Head points to the first node and Tail points to the last node.
 struct Node *Head = NULL;
 struct Node *Tail = NULL;
 
+// Inserts a new node at the beginning of the circular linked list.
 void Insertion_at_Beg(int data)
 {
     struct Node *newnode, *temp;
@@ -31,9 +34,11 @@ void Insertion_at_Beg(int data)
         Head = newnode;
     }
 
+    // Maintains the circular link.
     Tail -> next = Head;
 }
 
+// Inserts a new node at the end of the circular linked list.
 void Insertion_at_End(int data)
 {
     struct Node *newnode, *temp;
@@ -54,9 +59,11 @@ void Insertion_at_End(int data)
         Tail = newnode;
     }
 
+    // Maintains the circular link.
     Tail -> next = Head;
 }
 
+// Inserts a new node at the given position.
 void Insertion_at_Pos(int data, int pos)
 {
     struct Node *newnode, *temp;
@@ -78,6 +85,7 @@ void Insertion_at_Pos(int data, int pos)
     temp -> next = newnode;
 }
 
+// Deletes the first node from the circular linked list.
 void Deletion_at_Beg()
 {
     struct Node *delnode;
@@ -104,6 +112,7 @@ void Deletion_at_Beg()
     }
 }
 
+// Deletes the last node from the circular linked list.
 void Deletion_at_End()
 {
     struct Node *temp, *delnode;
@@ -137,6 +146,7 @@ void Deletion_at_End()
     }
 }
 
+// Deletes a node from the given position.
 void Deletion_at_Pos(int pos)
 {
     struct Node *temp, *delnode;
@@ -155,6 +165,7 @@ void Deletion_at_Pos(int pos)
     free(delnode);
 }
 
+// Displays node address, data, and next address until it reaches Head again.
 void Display()
 {
     struct Node *temp;
@@ -186,6 +197,7 @@ int main()
         {
             case 1 :
             {
+                // Insert at beginning.
                 printf("Enter the Data: ");
                 scanf("%d", &data);
 
@@ -197,6 +209,7 @@ int main()
 
             case 2 :
             {
+                // Insert at end.
                 printf("Enter the Data: ");
                 scanf("%d", &data);
 
@@ -208,6 +221,7 @@ int main()
 
             case 3 :
             {
+                // Insert at a specific position.
                 printf("Enter the Data & Position: ");
                 scanf("%d%d", &data, &pos);
 
@@ -219,6 +233,7 @@ int main()
 
             case 4 :
             {
+                // Delete from beginning.
                 Deletion_at_Beg();
                 printf("Value Deleted at Beggining");
 
@@ -227,6 +242,7 @@ int main()
 
             case 5 :
             {
+                // Delete from end.
                 Deletion_at_End();
                 printf("Value Deleted at Ending");
 
@@ -235,6 +251,7 @@ int main()
 
             case 6 :
             {
+                // Delete from a specific position.
                 printf("Enter Position to Delete: ");
                 scanf("%d", &pos);
 
@@ -246,6 +263,7 @@ int main()
 
             case 7 :
             {
+                // Display current circular linked list.
                 printf("The Linked List is: \n");
 
                 Display();

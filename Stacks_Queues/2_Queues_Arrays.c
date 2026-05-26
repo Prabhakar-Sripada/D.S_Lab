@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Array stores queue elements; front and rear track deletion and insertion.
 int queue[20], size;
 int front = -1, rear = -1;
 
+// Inserts an element at the rear of the queue.
 void enqueue()
 {
     int ele;
@@ -24,6 +26,7 @@ void enqueue()
     }
 }
 
+// Deletes an element from the front of the queue.
 void dequeue()
 {
     if(front == -1)
@@ -42,6 +45,7 @@ void dequeue()
     }
 }
 
+// Displays queue elements from front to rear.
 void display()
 {
     int temp;
@@ -64,6 +68,7 @@ int main()
 
     printf("1. Enqueue\n 2. Dequeue\n 3. Display\n 4. Exit\n");
 
+    // Menu-driven queue operations.
     while(1)
     {
         printf("\nEnter your option: ");

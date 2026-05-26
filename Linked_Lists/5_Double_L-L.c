@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for one node of the doubly linked list.
 struct Node {
     int data;
     struct Node *prev, *next;
 };
 
+// Head stores the address of the first node.
 struct Node *Head = NULL;
 
+// Creates a new node with previous and next links as NULL.
 struct Node* create(int data) {
     struct Node *n = malloc(sizeof(struct Node));
     n->data = data;
@@ -16,12 +19,14 @@ struct Node* create(int data) {
 }
 
 // Insertions
+// Inserts a new node at the beginning.
 void insertBeg(int data) {
     struct Node *n = create(data);
     if (Head) Head->prev = n, n->next = Head;
     Head = n;
 }
 
+// Inserts a new node at the end.
 void insertEnd(int data) {
     struct Node *n = create(data), *t = Head;
     if (!Head) { Head = n; return; }
@@ -29,6 +34,7 @@ void insertEnd(int data) {
     t->next = n; n->prev = t;
 }
 
+// Inserts a new node after reaching the given position.
 void insertPos(int data, int pos) {
     struct Node *n = create(data), *t = Head;
     for (int i = 1; i < pos-1 && t; i++) t = t->next;
@@ -39,6 +45,7 @@ void insertPos(int data, int pos) {
 }
 
 // Deletions
+// Deletes the first node.
 void deleteBeg() {
     if (!Head) return;
     struct Node *t = Head;
@@ -47,6 +54,7 @@ void deleteBeg() {
     free(t);
 }
 
+// Deletes the last node.
 void deleteEnd() {
     if (!Head) return;
     struct Node *t = Head;
@@ -56,6 +64,7 @@ void deleteEnd() {
     free(t);
 }
 
+// Deletes the node at the given position.
 void deletePos(int pos) {
     struct Node *t = Head;
     for (int i = 1; i < pos && t; i++) t = t->next;
@@ -67,6 +76,7 @@ void deletePos(int pos) {
 }
 
 // Display
+// Displays the list from first node to last node.
 void display() {
     for (struct Node *t = Head; t; t = t->next)
         printf("%d <-> ", t->data);
@@ -77,6 +87,7 @@ void display() {
 int main() {
     int ch, data, pos;
     while (1) {
+        // Menu repeats until the user enters -1.
         printf("\n1.Beg 2.End 3.Pos 4.DelBeg 5.DelEnd 6.DelPos 7.Show -1.Exit\n");
         scanf("%d", &ch);
         if (ch == -1) break;

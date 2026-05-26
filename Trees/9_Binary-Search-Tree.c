@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for one node of the binary search tree.
 struct node
 {
     int data;
     struct node *left, *right;
 };
 
+// Creates a new tree node.
 struct node* newNode(int x)
 {
     struct node* t = (struct node*)malloc(sizeof(struct node));
@@ -15,6 +17,7 @@ struct node* newNode(int x)
     return t;
 }
 
+// Inserts a value into the binary search tree.
 struct node* insert(struct node* root, int x)
 {
     if (root == NULL)
@@ -28,6 +31,7 @@ struct node* insert(struct node* root, int x)
     return root;
 }
 
+// Inorder traversal: Left, Root, Right.
 void inorder(struct node* root)
 {
     if (root != NULL)
@@ -38,6 +42,7 @@ void inorder(struct node* root)
     }
 }
 
+// Preorder traversal: Root, Left, Right.
 void preorder(struct node* root)
 {
     if (root != NULL)
@@ -48,6 +53,7 @@ void preorder(struct node* root)
     }
 }
 
+// Postorder traversal: Left, Right, Root.
 void postorder(struct node* root)
 {
     if (root != NULL)
@@ -70,6 +76,7 @@ int main()
     for (i = 0; i < n; i++)
     {
         scanf("%d", &x);
+        // Build the tree by inserting each value.
         root = insert(root, x);
     }
 

@@ -1,4 +1,6 @@
 #include <stdio.h>
+
+// Maintains the max-heap property for the subtree rooted at index i.
 void heapify(int a[], int n, int i)
 {
     int largest = i;
@@ -18,6 +20,7 @@ void heapify(int a[], int n, int i)
     }
 }
 
+// Sorts the array using heap sort.
 void heapSort(int a[], int n)
 {
     // Build heap
@@ -43,6 +46,7 @@ int main()
     printf("Enter elements: ");
     for(int i = 0; i < n; i++) scanf("%d", &a[i]);
 
+    // Sort the input array using heap sort.
     heapSort(a, n);
 
     printf("Sorted Array: ");

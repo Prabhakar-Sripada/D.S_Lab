@@ -1,15 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// Structure for one node of the linked-list queue.
 struct node
 {
     int data;
     struct node *next;
 };
 
+// Front is used for deletion and rear is used for insertion.
 struct node *front = NULL;
 struct node *rear = NULL;
 
+// Inserts an element at the rear of the queue.
 void insert()
 {
     struct node *ptr;
@@ -43,6 +46,7 @@ void insert()
     }
 }
 
+// Deletes an element from the front of the queue.
 void deleteElement()
 {
     struct node *ptr;
@@ -60,6 +64,7 @@ void deleteElement()
     }
 }
 
+// Displays all queue elements from front to rear.
 void display()
 {
     struct node *ptr;
@@ -83,6 +88,7 @@ void display()
 int main ()
 {
     int choice = 0;
+    // Menu-driven queue operations.
     while(choice != 4)
     {
         printf("\n****Main Menu****\n");

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Structure for one node of the linked-list stack.
 struct node
 {
     int val;
@@ -8,8 +9,10 @@ struct node
     struct node *next;
 };
 
+// Head acts as the top of the stack.
 struct node *head = NULL;
 
+// Pushes a new value onto the top of the stack.
 void push()
 {
     int val;
@@ -32,6 +35,7 @@ void push()
     printf("Item Pushed\n");
 }
 
+// Pops the top value from the stack.
 void pop()
 {
     if(head == NULL)
@@ -50,6 +54,7 @@ void pop()
     free(ptr);
 }
 
+// Displays stack values from top to bottom.
 void display()
 {
     struct node *ptr = head;
@@ -75,6 +80,7 @@ int main()
     printf("\n****Stack Operations using ADT****\n");
     printf("\n----------\n");
     
+    // Menu-driven stack operations.
     do
     {
         printf("\n1. Push \n2. Pop \n3. Show \n4. Exit");
@@ -93,6 +99,7 @@ int main()
     }
     while (choice != 4); //Free allocated memory before Exiting
 
+    // Frees remaining nodes before the program ends.
     while (head != NULL)
     {
         pop();
